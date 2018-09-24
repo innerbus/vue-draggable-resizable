@@ -198,9 +198,16 @@ export default {
 
   methods: {
     reviewDimensions: function () {
-      if (this.minw > this.w) this.width = this.minw
+      let sizeChanged = false
+      if (this.minw > this.w) {
+        this.width = this.minw
+        sizeChanged = true
+      }
 
-      if (this.minh > this.h) this.height = this.minh
+      if (this.minh > this.h) {
+        this.height = this.minh
+        sizeChanged = true
+      }
 
       if (this.parent) {
         const parentW = parseInt(this.$el.parentNode.clientWidth, 10)
@@ -209,19 +216,33 @@ export default {
         this.parentW = parentW
         this.parentH = parentH
 
-        if (this.w > this.parentW) this.width = parentW
+        if (this.w > this.parentW) {
+          this.width = parentW
+          sizeChanged = true
+        }
 
-        if (this.h > this.parentH) this.height = parentH
+        if (this.h > this.parentH) {
+          this.height = parentH
+          sizeChanged = true
+        }
 
-        if ((this.x + this.w) > this.parentW) this.width = parentW - this.x
+        if ((this.x + this.w) > this.parentW) {
+          this.width = parentW - this.x
+          sizeChanged = true
+        }
 
-        if ((this.y + this.h) > this.parentH) this.height = parentH - this.y
+        if ((this.y + this.h) > this.parentH) {
+          this.height = parentH - this.y
+          sizeChanged = true
+        }
       }
 
       this.elmW = this.width
       this.elmH = this.height
 
-      this.$emit('resizing', this.left, this.top, this.width, this.height)
+      if (sizeChanged) {
+        this.$emit('resizing', this.left, this.top, this.width, this.height);
+      }
     },
     elmDown: function (e) {
       const target = e.target || e.srcElement
