@@ -453,6 +453,26 @@ export default {
       if (val >= 0 || val === 'auto') {
         this.zIndex = val
       }
+    },
+    x: function (val) {
+      if (typeof val === 'number') {
+        this.left = val
+      }
+    },
+    y: function (val) {
+      if (typeof val === 'number') {
+        this.top = val
+      }
+    },
+    w: function (val) {
+      if (val >= 0) {
+        this.width = val
+      }
+    },
+    h: function (val) {
+      if (val >= 0) {
+        this.height = val
+      }
     }
   }
 }
